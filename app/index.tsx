@@ -1,30 +1,37 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 
 export default function Index() {
-  
-const getPokemons = async() => {
+  const [results, setResults] = useState<any[]>([]);
   useEffect(() => {
     console.log("Entre en pantalla");
     getPokemons();
   }, []);
 
-  try {
-    const url = "https://poke.co/api/v2/pokemon?limit=100000&offset=0"; 
-  const response = await fetch(url, {
-    method: "GET",
-  });
-  if(response.ok){
-    console.log("Respuesta ok");
-  }else{
-    console.log("Bad request");
-  }
-  } catch (error) {
-    console.log("Error en la petición:", error);
-  }
-};
+  const getPokemons = async () => {
+    try {
+      //si se tiene un error envuelve el codigo con un try,catch
+      const URL = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
+      const response = await fetch(URL, {
+        method: "GET",
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setResults(data.results);
+      } else {
+        console.log("Bard Request");
+      }
+    } catch (error) {
+      console.log("Ocurrio un problema");
+    }
+  };
+
   return (
-    <View>    
-      <Text>Edit app/index.tsx to edit this screen.</Text>
+    <View>
+      {results.map((item) => {
+        return <Text key={item.name}> {item.name}</Text>;
+      })}
     </View>
-  );}
+  );
+}
