@@ -1,0 +1,11 @@
+{
+  "tasks": [
+    {
+      "title": "etica",
+      "description": "kdjcfweoui",
+      "completed": true,
+      "id": "YBNB5TWCR-Y"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
